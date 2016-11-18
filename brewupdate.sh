@@ -6,8 +6,23 @@ IFS=$'\n\t'
 # Written by pierriklassalas@gmail.com
 # Simple brew update script.
 
-# Exit function
-function finish {
+# Add the /usr/local/bin to the PATH variable
+PATH=/usr/local/bin:$PATH
+
+# Define the variables
+stdout_log="$HOME"/.brewupdate/stdout
+stderr_log="$HOME"/.brewupdate/stderr
+brew_exec="$(which brew)"
+
+# Start and exit functions
+start() {
+echo "
+~~~~~~~~~~~~~~~~~~~~~~~
+Starting brew-update at $(date).
+" | tee -a "$stdout_log" "$stderr_log" >/dev/null
+}
+
+finish() {
 echo "
 ~~~~~~~~~~~~~~~~~~~~~~~
 Finished brew-update at $(date).
@@ -15,7 +30,7 @@ Finished brew-update at $(date).
 }
 
 # Catch any error and print to stderr
-function my_trap_handler()
+my_trap_handler()
 {
 MYSELF="$0"               # equals to my script name
 LASTLINE="$1"            # argument 1: last line of error occurence
@@ -31,16 +46,7 @@ An error occured during the update. Please check the stderr log." >> "$stdout_lo
 trap 'my_trap_handler ${LINENO} $?' ERR
 trap finish EXIT
 
-# Define the variables
-stdout_log="$HOME"/.brewupdate/stdout
-stderr_log="$HOME"/.brewupdate/stderr
-brew_path=/usr/local/bin/brew
-
 # Start the script
-echo "
-~~~~~~~~~~~~~~~~~~~~~~~
-Starting brew-update at $(date).
-" | tee -a "$stdout_log" "$stderr_log" >/dev/null
-
+start
 # Run `brew update` command. Pipe the output to stdout, the error to stderr.
-"$brew_path" update 1>>"$stdout_log"  2>>"$stderr_log"
+"$brew_exec" update 1>>"$stdout_log"  2>>"$stderr_log"
