@@ -114,6 +114,8 @@ fi
 
 # Check if the process is running, and unload it
 if launchctl list | grep brewupdate.job >/dev/null; then
+  echo "Found a running instance of brewupdate.job."
+  echo "Unloading..."
   launchctl unload brewupdate.job.plist
 fi
 
