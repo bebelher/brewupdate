@@ -13,7 +13,7 @@ REPOSITORY="https://raw.githubusercontent.com/bebelher/brewupdate/experimental"
 PATH=/usr/local/bin:$PATH
 user_agents="$HOME/Library/LaunchAgents"
 plist="$user_agents/brewupdate.job.plist"
-install_path="$HOME"/.brewupdate/
+install_path="$HOME"/.brewupdate
 # current_path="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/)" # To be removed
 
 scratch="$(mktemp -d)"
