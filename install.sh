@@ -16,7 +16,7 @@ plist="$user_agents/brewupdate.job.plist"
 install_path="$HOME"/.brewupdate/
 # current_path="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/)" # To be removed
 
-scratch="$(mktemp -d -t tmp.XXXXXXXXXX)"
+scratch="$(mktemp -d)"
 SCRIPT_CHECKSUM="ad5af4d8064358e64092739adcfb28f2e44afb6f8f03ae96f7e732dc9795fe6c"
 PLIST_CHECKSUM="a4be079d17cbe683a3ce9eff206b210660335464cea863d6fbb01b67a71eb970"
 
@@ -54,12 +54,9 @@ fi
 
 # Download and verify the script
 echo "Downloading the script..."
-wget -O "$scratch"/brewupdate.sh "$REPOSITORY/brewupdate.sh"
+wget -q -O "$scratch"/brewupdate.sh "$REPOSITORY/brewupdate.sh"
 shasum -a 256 -p "$scratch"/brewupdate.sh \
   | awk '{print $1}' > "$scratch"/script_sha256
-
-echo "script_sha256: $(cat "$scratch"/script_sha256)"
-echo "script_checksum: $(cat "$scratch"/script_checksum)"
 
 echo "Verifying checksum of the downloaded file..."
 if diff -q "$scratch"/script_sha256 "$scratch"/script_checksum >/dev/null; then
@@ -70,8 +67,8 @@ else
   exit 1
 fi
 
-echo "
-Copying the update script..."
+echo ""
+echo "Copying the update script..."
 
 if [ ! -f "$install_path"/brewupdate.sh ]; then
   echo "Script not found! Copying..."
@@ -92,8 +89,9 @@ if [ ! -x "$install_path"/brewupdate.sh ]; then
 fi
 
 # Download and verify the plist file
+echo ""
 echo "Downloading the plist file..."
-wget -O "$scratch"/brewupdate.job.plist "$REPOSITORY/brewupdate.job.plist"
+wget -q -O "$scratch"/brewupdate.job.plist "$REPOSITORY/brewupdate.job.plist"
 shasum -a 256 -p "$scratch"/brewupdate.job.plist \
   | awk '{print $1}' > "$scratch"/plist_sha256
 
@@ -134,4 +132,5 @@ else
   fi
 fi
 
+echo ""
 echo "Installation script finished properly. Exiting."
