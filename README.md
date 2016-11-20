@@ -1,10 +1,12 @@
 # brewupdate #
-Simple bash script to update [homebrew][homebrew] regularly (10:00 am/pm every day).
+
+Simple bash script to update [homebrew][homebrew] regularly (10:00am and 10:00pm every day).
+
 It was originally inspired from the [brewupdate][brewupdate] script from [mkalmes][mkalmes].
 
 
 ## How to install? ##
-Simply run the following command in the terminal:
+To install, simply run the following command in the terminal:
 ```sh
 wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/experimental/install.sh | bash
 ```
@@ -19,7 +21,8 @@ wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/experimental/
 The script will create a folder `~/.brewupdate/` and copy `brewupdate.sh` inside it.
 It will install the `brewupdate.job.plist` in the folder `~/Library/LaunchAgents/`, then load the job using `launchctl`.
 
-If the files already exist, they will be replaced only if the downloaded file is different.
+
+If a file already exists, it will be replaced only if the downloaded file is different.
 
 ## How do I check the output of the script? ##
 If you want to check the stdout and stderr of the script, please check the content of `~/.brewupdate/stdout` or `~/.brewupdate/stderr`.
