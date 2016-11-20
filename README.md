@@ -8,13 +8,13 @@ It was originally inspired from the [brewupdate][brewupdate] script from [mkalme
 ## How to install? ##
 To install, simply run the following command in the terminal:
 ```sh
-wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/experimental/install.sh | bash
+wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/master/install.sh | bash
 ```
 
 ## How to upgrade? ##
 If you wish to upgrade the script, run the same command as for the installation:
 ```sh
-wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/experimental/install.sh | bash
+wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/master/install.sh | bash
 ```
 
 ## How does the installation script work? ##
@@ -34,7 +34,7 @@ You are welcome to [open an issue][issue]!
 The code is under the [MIT License][license].
 
 [homebrew]: https://github.com/mxcl/homebrew/
-[license]: https://github.com/bebelher/brewupdate/raw/experimental/LICENSE
+[license]: https://github.com/bebelher/brewupdate/raw/master/LICENSE
 [issue]: https://github.com/bebelher/brewupdate/issues/new
 [brewupdate]: https://github.com/mkalmes/brewupdate
 [mkalmes]:https://github.com/mkalmes

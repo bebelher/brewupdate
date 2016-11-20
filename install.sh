@@ -7,7 +7,7 @@ IFS=$'\n\t'
 # Simple brew update script.
 
 # Repository address
-REPOSITORY="https://raw.githubusercontent.com/bebelher/brewupdate/experimental"
+REPOSITORY="https://raw.githubusercontent.com/bebelher/brewupdate/master"
 
 # Define the constants
 PATH=/usr/local/bin:$PATH
