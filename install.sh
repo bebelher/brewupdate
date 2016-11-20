@@ -112,17 +112,17 @@ fi
   "Add :ProgramArguments:1 string '$install_path/brewupdate.sh'" \
   "$scratch/brewupdate.job.plist"
 
-# Check if the process is running, and unload it
-if launchctl list | grep brewupdate.job >/dev/null; then
-  echo "Found a running instance of brewupdate.job."
-  echo "Unloading..."
-  launchctl unload brewupdate.job.plist
-fi
 
 # Check if the plist is already on the computer
 if [ ! -f "$plist" ]; then
   echo "Plist not found! Copying..."
   cp -p "$scratch/brewupdate.job.plist" "$user_agents"
+  # Check if the process is running, and unload it
+  if launchctl list | grep brewupdate.job >/dev/null; then
+    echo "Found a running instance of brewupdate.job."
+    echo "Unloading..."
+    launchctl unload brewupdate.job.plist
+  fi
   echo "Loading the plist file..."
   launchctl load "$plist"
 else
