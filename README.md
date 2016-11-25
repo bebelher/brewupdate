@@ -26,6 +26,9 @@ brew install wget
 
 If you wish to upgrade the script, run the same command as for the installation:
 ```sh
+# With curl
+curl -L https://raw.githubusercontent.com/bebelher/brewupdate/master/install.sh | bash
+# Or with wget
 wget -q -O - https://raw.githubusercontent.com/bebelher/brewupdate/master/install.sh | bash
 ```
 
