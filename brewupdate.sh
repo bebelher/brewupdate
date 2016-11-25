@@ -12,7 +12,7 @@ PATH=/usr/local/bin:$PATH
 # Define the variables
 stdout_log="$HOME"/.brewupdate/stdout
 stderr_log="$HOME"/.brewupdate/stderr
-brew_exec="$(which brew)"
+brew_exec="$(command -v brew)"
 
 # Start and exit functions
 start() {

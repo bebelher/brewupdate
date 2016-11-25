@@ -6,6 +6,9 @@ IFS=$'\n\t'
 # Written by pierriklassalas@gmail.com
 # Simple brew update script.
 
+# TODO(check if wget is installed when downloading the files; if not, default to curl)
+# TODO(update script script_sha256)
+
 # Repository address
 REPOSITORY="https://raw.githubusercontent.com/bebelher/brewupdate/master"
 
@@ -14,10 +17,9 @@ PATH=/usr/local/bin:$PATH
 user_agents="$HOME/Library/LaunchAgents"
 plist="$user_agents/brewupdate.job.plist"
 install_path="$HOME"/.brewupdate
-# current_path="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/)" # To be removed
 
 scratch="$(mktemp -d)"
-SCRIPT_CHECKSUM="ad5af4d8064358e64092739adcfb28f2e44afb6f8f03ae96f7e732dc9795fe6c"
+SCRIPT_CHECKSUM="7a83a58a9b4f2ee47ba85a03396005e2cf25308d3dbce941d19673c1b8b1abd6"
 PLIST_CHECKSUM="a4be079d17cbe683a3ce9eff206b210660335464cea863d6fbb01b67a71eb970"
 
 echo "$SCRIPT_CHECKSUM" > "$scratch"/script_checksum
@@ -54,7 +56,13 @@ fi
 
 # Download and verify the script
 echo "Downloading the script..."
-wget -q -O "$scratch"/brewupdate.sh "$REPOSITORY/brewupdate.sh"
+
+if hash wget > /dev/null 2>&1; then
+  wget -q -O "$scratch"/brewupdate.sh "$REPOSITORY/brewupdate.sh"
+else
+  curl -s -o "$scratch"/brewupdate.sh "$REPOSITORY/brewupdate.sh"
+fi
+
 shasum -a 256 -p "$scratch"/brewupdate.sh \
   | awk '{print $1}' > "$scratch"/script_sha256
 
@@ -91,7 +99,13 @@ fi
 # Download and verify the plist file
 echo ""
 echo "Downloading the plist file..."
-wget -q -O "$scratch"/brewupdate.job.plist "$REPOSITORY/brewupdate.job.plist"
+
+if hash wget > /dev/null 2>&1; then
+  wget -q -O "$scratch"/brewupdate.job.plist "$REPOSITORY/brewupdate.job.plist"
+else
+  curl -s -o "$scratch"/brewupdate.job.plist "$REPOSITORY/brewupdate.job.plist"
+fi
+
 shasum -a 256 -p "$scratch"/brewupdate.job.plist \
   | awk '{print $1}' > "$scratch"/plist_sha256
 
